@@ -9,7 +9,6 @@ const signRouter = require('./routes/sign');
 const router = require('./routes');
 const { auth } = require('./middlewares/auth');
 const { pageNotFound } = require('./middlewares/pageNotFound');
-const { centralErrorHandler } = require('./middlewares/centralErrorHandler');
 const cors = require('./middlewares/cors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -23,24 +22,26 @@ app.use(requestLogger);
 
 app.use(cors);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
-// тут роуты авторизации и регистрации
 app.use(signRouter);
 
 app.use(auth);
 app.use(router);
 
-app.use(pageNotFound); // если введен несуществующий адрес
+app.use(pageNotFound);
 
 app.use(errorLogger);
 
 app.use(errors());
 
-app.use(centralErrorHandler); // централизованный обработчик ошибок
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
 
-app.listen(PORT);
+  res.status(statusCode).send({
+    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+  });
+  next();
+});
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});

@@ -8,7 +8,7 @@ const loginValidation = {
   }),
 };
 
-const registrationValidation = {
+const userValidation = {
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
@@ -18,45 +18,33 @@ const registrationValidation = {
   }),
 };
 
-const createCardValidation = {
+const cardValidation = {
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().regex(urlRegExp),
   }),
 };
 
-const deleteCardValidation = {
+const cardIdValidation = {
   params: Joi.object().keys({
     cardId: Joi.string().hex().length(24).required(),
   }),
 };
 
-const likeCardValidation = {
-  params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24).required(),
-  }),
-};
-
-const dislikeCardValidation = {
-  params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24).required(),
-  }),
-};
-
-const getUserByIdValidation = {
+const idValidation = {
   params: Joi.object().keys({
     userId: Joi.string().hex().length(24).required(),
   }),
 };
 
-const updateProfileValidation = {
+const aboutValidation = {
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
     about: Joi.string().min(2).max(30).required(),
   }),
 };
 
-const updateAvatarValidation = {
+const avatarValidation = {
   body: Joi.object().keys({
     avatar: Joi.string().regex(urlRegExp).required(),
   }),
@@ -64,12 +52,10 @@ const updateAvatarValidation = {
 
 module.exports = {
   loginValidation,
-  registrationValidation,
-  createCardValidation,
-  deleteCardValidation,
-  likeCardValidation,
-  dislikeCardValidation,
-  getUserByIdValidation,
-  updateProfileValidation,
-  updateAvatarValidation,
+  userValidation,
+  cardValidation,
+  cardIdValidation,
+  idValidation,
+  aboutValidation,
+  avatarValidation,
 };
