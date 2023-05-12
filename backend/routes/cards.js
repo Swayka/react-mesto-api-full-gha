@@ -1,24 +1,17 @@
-const express = require('express');
+const cardsRouter = require('express').Router();
+const { celebrate } = require('celebrate');
+const { createCardValidation, deleteCardValidation, likeCardValidation, dislikeCardValidation } = require('../utils/validation');
 
-const cardRouter = express.Router();
+const { createCard } = require('../controllers/cards');
+const { getAllCards } = require('../controllers/cards');
+const { deleteCard } = require('../controllers/cards');
+const { likeCard } = require('../controllers/cards');
+const { dislikeCard } = require('../controllers/cards');
 
-const {
-  cardValidation,
-  cardIdValidation,
-} = require('../utils/validate');
+cardsRouter.get('/', getAllCards);
+cardsRouter.post('/', celebrate(createCardValidation), createCard);
+cardsRouter.delete('/:cardId', celebrate(deleteCardValidation), deleteCard);
+cardsRouter.put('/:cardId/likes', celebrate(likeCardValidation), likeCard);
+cardsRouter.delete('/:cardId/likes', celebrate(dislikeCardValidation), dislikeCard);
 
-const {
-  getCards,
-  createCard,
-  deleteCard,
-  putLike,
-  deleteLike,
-} = require('../controllers/cards');
-
-cardRouter.get('/', getCards);
-cardRouter.post('/', cardValidation, createCard);
-cardRouter.delete('/:cardId', cardIdValidation, deleteCard);
-cardRouter.put('/:cardId/likes', cardIdValidation, putLike);
-cardRouter.delete('/:cardId/likes', cardIdValidation, deleteLike);
-
-module.exports = cardRouter;
+module.exports = cardsRouter;

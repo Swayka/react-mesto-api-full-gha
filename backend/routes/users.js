@@ -1,25 +1,17 @@
-const express = require('express');
+const usersRouter = require('express').Router();
+const { celebrate } = require('celebrate');
+const { getUserByIdValidation, updateProfileValidation, updateAvatarValidation } = require('../utils/validation');
 
-const userRouter = express.Router();
+const { getUsers } = require('../controllers/users');
+const { getInfoMe } = require('../controllers/users');
+const { getUserById } = require('../controllers/users');
+const { updateProfile } = require('../controllers/users');
+const { updateAvatar } = require('../controllers/users');
 
-const {
-  aboutValidation,
-  avatarValidation,
-  idValidation,
-} = require('../utils/validate');
+usersRouter.get('/', getUsers);
+usersRouter.get('/me', getInfoMe);
+usersRouter.get('/:userId', celebrate(getUserByIdValidation), getUserById);
+usersRouter.patch('/me', celebrate(updateProfileValidation), updateProfile);
+usersRouter.patch('/me/avatar', celebrate(updateAvatarValidation), updateAvatar);
 
-const {
-  getUsers,
-  getUserById,
-  updateUserInfo,
-  updateUserAvatar,
-  getUser,
-} = require('../controllers/users');
-
-userRouter.get('/', getUsers);
-userRouter.get('/me', getUser);
-userRouter.get('/:userId', idValidation, getUserById);
-userRouter.patch('/me', aboutValidation, updateUserInfo);
-userRouter.patch('/me/avatar', avatarValidation, updateUserAvatar);
-
-module.exports = userRouter;
+module.exports = usersRouter;

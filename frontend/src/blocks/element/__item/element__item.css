@@ -1,0 +1,8 @@
+.element__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000;
+  margin: 21px 21px 25px 21px;
+}

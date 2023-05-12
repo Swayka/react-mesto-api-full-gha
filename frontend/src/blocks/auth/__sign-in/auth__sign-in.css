@@ -1,0 +1,19 @@
+.auth__sign-in {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+  margin-top: 15px;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+.auth__sign-in:hover {
+  opacity: 0.6;
+}
+@media screen and (max-width: 550px) {
+  .auth__sign-in {
+    margin-top: 20px;
+  }
+}

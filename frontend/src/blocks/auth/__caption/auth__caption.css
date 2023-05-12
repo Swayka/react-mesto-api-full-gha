@@ -1,0 +1,13 @@
+.auth__caption {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  margin: 15px 4px 0 0;
+}
+@media screen and (max-width: 550px) {
+  .auth__caption {
+    margin-top: 20px;
+  }
+}

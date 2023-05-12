@@ -1,27 +1,26 @@
 const mongoose = require('mongoose');
-const { isURL, isEmail } = require('validator');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    default: 'Жак-Ив Кусто',
     minlength: 2,
     maxlength: 30,
+    default: 'Жак-Ив Кусто',
   },
   about: {
     type: String,
-    default: 'Исследователь',
     minlength: 2,
     maxlength: 30,
+    default: 'Исследователь',
   },
   avatar: {
     type: String,
-    default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
+    default:
+      'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
-      validator(link) {
-        return isURL(link);
-      },
-      message: 'Некорректный формат ссылки',
+      validator: (v) => validator.isURL(v),
+      message: 'Введен не верный адрес.',
     },
   },
   email: {
@@ -29,16 +28,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-      validator(link) {
-        return isEmail(link);
-      },
-      message: 'Некорректный email',
+      validator: (value) => validator.isEmail(value),
+      message: 'Некорректно введен email. Ожидается строка.',
     },
   },
   password: {
     type: String,
     required: true,
-    select: false,
+    select: false, // так хэш пароля не будет по умолчанию возвращаться из базы
   },
 });
 

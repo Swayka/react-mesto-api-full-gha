@@ -1,0 +1,17 @@
+.profile__foto {
+  object-position: center;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+.profile__foto:hover {
+  opacity: 0.2;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__foto {
+    margin-bottom: 22px;
+  }
+}
