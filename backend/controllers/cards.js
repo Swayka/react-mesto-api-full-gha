@@ -25,7 +25,7 @@ const createCard = (req, res, next) => {
         .then((card) => res.status(201).send(card));
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (error instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequestError(
             'Переданы некорректные данные при создании карточки.',
@@ -47,11 +47,11 @@ const deleteCard = (req, res, next) => {
       } else if (card.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Доступ запрещен');
       } else {
-        return Card.deleteOne({ _id: cardId }).then(() => res.send(card));
+        return card.deleteOne().then(() => res.send(card));
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Некорректный ID карточки'));
         return;
       }
@@ -76,7 +76,7 @@ const putLike = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (error instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Некорректный ID карточки'));
         return;
       }
@@ -102,7 +102,7 @@ const deleteLike = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (error instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Некорректный ID карточки'));
         return;
       }
