@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Header from "./Header";
@@ -52,7 +52,6 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-    
   }, []);
 
 
@@ -199,7 +198,7 @@ function App() {
         .then((res) => {
           if (res) {
             setIsLogged(true);
-            setUserEmail(res.data.email);
+            setUserEmail(res.email);
             navigate("/", { replace: true });
           }
           else {

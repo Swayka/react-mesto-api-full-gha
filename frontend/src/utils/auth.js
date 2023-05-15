@@ -35,3 +35,4 @@ function check(res) {
   }
   return Promise.reject(`Возникла ошибка: ${res.status}`);
 }
+
