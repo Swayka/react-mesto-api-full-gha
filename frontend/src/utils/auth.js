@@ -1,4 +1,4 @@
-const url = "https://auth.nomoreparties.co";
+const url = "https://api.manzhikova.students.nomoredomains.monster";
 export const register = (email, password) =>
   fetch(`${url}/signup`, {
     method: "POST",

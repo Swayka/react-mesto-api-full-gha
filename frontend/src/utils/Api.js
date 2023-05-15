@@ -94,7 +94,7 @@ class Api {
 export const api = new Api({
   url: "https://api.manzhikova.students.nomoredomains.monster",
   headers: {
+    'Content-Type': 'application/json',
     authorization: `Bearer ${localStorage.getItem('token')}`,
-    "Content-Type": "application/json",
   },
 });
