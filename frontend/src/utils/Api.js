@@ -92,9 +92,9 @@ class Api {
 }
 
 export const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-59",
+  url: "https://api.manzhikova.students.nomoredomains.monster",
   headers: {
-    authorization: "0cbf3665-4ef0-425a-8420-0f1dd1290047",
+    authorization: `Bearer ${localStorage.getItem('token')}`,
     "Content-Type": "application/json",
   },
 });
