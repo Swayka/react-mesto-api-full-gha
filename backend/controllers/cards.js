@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Card = require('../models/card');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
@@ -25,7 +26,7 @@ const createCard = (req, res, next) => {
         .then((card) => res.status(201).send(card));
     })
     .catch((err) => {
-      if (error instanceof mongoose.Error.ValidationError) {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequestError(
             'Переданы некорректные данные при создании карточки.',
@@ -76,7 +77,7 @@ const putLike = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (error instanceof mongoose.Error.CastError) {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Некорректный ID карточки'));
         return;
       }
@@ -102,7 +103,7 @@ const deleteLike = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (error instanceof mongoose.Error.CastError) {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Некорректный ID карточки'));
         return;
       }

@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { JWT_SECRET, NODE_ENV } = require('../config');
@@ -13,16 +14,6 @@ const getUsers = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-};
-
-const getUserById = (req, res, next) => {
-  const { userId } = req.params;
-  findUserById(userId, res, next);
-};
-
-const getUser = (req, res, next) => {
-  const userId = req.user._id;
-  findUserById(userId, res, next);
 };
 
 const findUserById = (userId, res, next) => {
@@ -41,6 +32,16 @@ const findUserById = (userId, res, next) => {
       }
       next(err);
     });
+};
+
+const getUserById = (req, res, next) => {
+  const { userId } = req.params;
+  findUserById(userId, res, next);
+};
+
+const getUser = (req, res, next) => {
+  const userId = req.user._id;
+  findUserById(userId, res, next);
 };
 
 const createUser = (req, res, next) => {
@@ -66,7 +67,7 @@ const createUser = (req, res, next) => {
         next(
           new ConflictError('Пользователь с таким email уже зарегистрирован'),
         );
-      } else if (error instanceof mongoose.Error.ValidationError) {
+      } else if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequestError(
             'Переданы некорректные данные',

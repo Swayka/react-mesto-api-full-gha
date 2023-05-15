@@ -6,7 +6,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.52.44
+IP 158.160.52.44
 
 Frontend https://manzhikova.students.nomoredomains.monster
 
